@@ -19,6 +19,11 @@ defmodule SpotitApp.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", SpotitApp do
+    pipe_through :api
+
+    resources "/users", UserController, except: [:show, :index, :new, :edit]
+  end
   # Other scopes may use custom stacks.
   # scope "/api", SpotitApp do
   #   pipe_through :api

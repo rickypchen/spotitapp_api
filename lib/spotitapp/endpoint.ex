@@ -38,5 +38,6 @@ defmodule SpotitApp.Endpoint do
     key: "_spotitapp_key",
     signing_salt: "5PPa539y"
 
+  plug Corsica, allow_headers: ~w(Accept Content-Type Authorization)
   plug SpotitApp.Router
 end

@@ -23,6 +23,23 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configures Ueberauth
+config :ueberauth, Ueberauth,
+  providers: [
+    identity: {
+      Ueberauth.Strategy.Identity,
+      [callback_methods: ["POST"]]
+    }
+  ]
+
+# Configures Guaridan
+config :guardian, Guardian,
+  issuer: "PhoenixChat",
+  ttl: {30, :days},
+  secret_key: "PjlcZNRtHWQobYDx57A3yYwfwaFx3+T8KIPo454pwmxkVln5KEyQb6GIqnj6UBHs",
+  serializer: PhoenixChat.GuardianSerializer,
+  permissions: %{default: [:read, :write]}
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

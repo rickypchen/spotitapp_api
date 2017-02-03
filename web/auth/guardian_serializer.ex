@@ -1,7 +1,7 @@
-defmodule PhoenixChat.GuardianSerializer do
+defmodule SpotitApp.GuardianSerializer do
   @behaviour Guardian.Serializer
 
-  alias PhoenixChat.{Repo, User}
+  alias SpotitApp.{Repo, User}
 
   def for_token(%User{id: id}), do: {:ok, "User:#{id}"}
   def for_token(_), do: {:error, "Unknown resource type"}

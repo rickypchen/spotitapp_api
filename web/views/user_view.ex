@@ -7,7 +7,7 @@ defmodule SpotitApp.UserView do
     %{data: render_many(users, UserView, "user.json")}
   end
 
-  def render("show.json", %{user: user}) do
+  def render("show.json", %{user: user, token: token}) do
     %{data: render_one(user, UserView, "user.json", token: token)}
   end
 
@@ -20,7 +20,7 @@ defmodule SpotitApp.UserView do
       email: user.email,
       username: user.username}
   end
-  
+
   def render("user_token.json", %{user: user, token: token}) do
     %{email: user.email,
       id: user.id,

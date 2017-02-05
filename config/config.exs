@@ -34,10 +34,10 @@ config :ueberauth, Ueberauth,
 
 # Configures Guaridan
 config :guardian, Guardian,
-  issuer: "PhoenixChat",
+  issuer: "SpotitApp",
   ttl: {30, :days},
   secret_key: "PjlcZNRtHWQobYDx57A3yYwfwaFx3+T8KIPo454pwmxkVln5KEyQb6GIqnj6UBHs",
-  serializer: PhoenixChat.GuardianSerializer,
+  serializer: SpotitApp.GuardianSerializer,
   permissions: %{default: [:read, :write]}
 
 # Import environment specific config. This must remain at the bottom

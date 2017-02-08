@@ -13,6 +13,8 @@ defmodule SpotitApp.ConnCase do
   of the test unless the test case is marked as async.
   """
 
+  alias SpotitApp.{Repo, User}
+
   use ExUnit.CaseTemplate
 
   using do
@@ -20,25 +22,34 @@ defmodule SpotitApp.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      alias SpotitApp.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
       import SpotitApp.Router.Helpers
-
+      import SpotitApp.ConnCase
       # The default endpoint for testing
       @endpoint SpotitApp.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SpotitApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(SpotitApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  def create_user!() do
+    Repo.insert! %User{username: "foo", email: "foo@bar.com"}
+  end
+
+  def create_user!(attrs) do
+    map = Map.merge(%{username: "foo", email: "foo@bar.com"}, attrs)
+    struct = struct(User, map)
+    Repo.insert! struct
   end
 end

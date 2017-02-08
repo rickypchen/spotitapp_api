@@ -40,7 +40,7 @@ defmodule SpotitApp.AuthController do
     |> put_status(:forbidden)
     |> render(ErrorView, "error.json", error: %{"account" => ["unauthorized"]})
   end
-  
+
   defp user_from_auth(auth) do
     result = Repo.get_by(User, email: auth.info.email)
     case result do

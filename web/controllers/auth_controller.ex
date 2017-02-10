@@ -4,7 +4,7 @@ defmodule SpotitApp.AuthController do
   alias SpotitApp.{ErrorView, UserView, User, AuthController}
 
   plug Ueberauth
-  plug Guardian.Plug.EnsureAuthenticated, [handler: AuthController] when action in [:delete, :me]
+  plug Guardian.Plug.EnsureAuthenticated, [handler: AuthController] when action in [:me, :delete]
 
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
@@ -27,6 +27,10 @@ defmodule SpotitApp.AuthController do
   def me(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     render(conn, UserView, "show.json", user: user)
+  end
+
+  def delete(conn, _params) do
+    send_resp(conn, :no_content, "")
   end
 
   def unauthenticated(conn, _params) do

@@ -19,16 +19,14 @@ defmodule SpotitApp.Router do
   end
 
   scope "/", SpotitApp do
-    pipe_through :browser # Use the default browser stack
-
+    pipe_through :browser
     get "/", PageController, :index
   end
 
   scope "/api", SpotitApp do
     pipe_through :api
 
-    get "/auth", AuthController, :test
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UserController, except: [:show, :index, :new, :edit]
   end
 
   scope "/auth", SpotitApp do
@@ -38,9 +36,4 @@ defmodule SpotitApp.Router do
     post "/:identity/callback", AuthController, :callback
     delete "/signout", AuthController, :delete
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", SpotitApp do
-  #   pipe_through :api
-  # end
 end
